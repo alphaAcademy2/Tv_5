@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="ml">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#07152f">
+<title>صلة الرحم | പാഠാവതരണം</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Manjari:wght@400;500;600;700&family=Noto+Naskh+Arabic:wght@500;600;700&display=swap');
+:root{
+  --bg:#07152f; --panel:#10254a; --gold:#ffd166; --cyan:#69e2dc;
+  --white:#f8fbff; --muted:#c4d2e8; --green:#9be7b1; --red:#ff8f9c;
+}
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;overflow:hidden}
+body{
+  font-family:'Manjari','Noto Sans Malayalam',sans-serif;color:var(--white);
+  background:radial-gradient(ellipse at 15% 15%,#173a69 0%,transparent 42%),
+             radial-gradient(ellipse at 85% 85%,#153d54 0%,transparent 38%),var(--bg);
+}
+.presentation{height:100dvh;width:100vw;display:flex;flex-direction:column;padding:2.2vh 3vw 1.8vh;gap:1.5vh}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:7vh}
+.brand{display:flex;align-items:center;gap:14px}
+.logo{width:48px;height:48px;border-radius:15px;background:linear-gradient(135deg,var(--gold),#ff9f43);display:grid;place-items:center;color:#14213d;font-size:27px;font-weight:700;box-shadow:0 8px 25px #0005}
+.brandtext{font-size:clamp(16px,2vw,25px);font-weight:700;letter-spacing:.2px}
+.brandtext small{display:block;color:var(--muted);font-size:.68em;font-weight:500;margin-top:2px}
+.progress{display:flex;align-items:center;gap:12px;color:var(--muted);font-size:clamp(14px,1.4vw,20px);white-space:nowrap}
+.progress-track{width:clamp(90px,14vw,210px);height:8px;background:#ffffff20;border-radius:20px;overflow:hidden}
+.progress-fill{height:100%;width:0;background:linear-gradient(90deg,var(--cyan),var(--gold));border-radius:20px;transition:width .3s}
+.stage{position:relative;flex:1;min-height:0;border:1px solid #ffffff20;border-radius:28px;background:linear-gradient(145deg,#122a50ee,#0d2040f2);box-shadow:0 22px 60px #0005;overflow:hidden;padding:clamp(22px,4vw,58px);display:flex;align-items:center;justify-content:center}
+.stage:before,.stage:after{content:"";position:absolute;border-radius:50%;pointer-events:none}
+.stage:before{width:260px;height:260px;border:1px solid #ffffff0d;right:-95px;top:-105px}
+.stage:after{width:180px;height:180px;border:1px solid #ffffff0d;left:-80px;bottom:-90px}
+.slide{position:relative;z-index:1;width:100%;height:100%;display:none;flex-direction:column;align-items:center;justify-content:center;text-align:center;animation:appear .35s ease}
+.slide.active{display:flex}
+@keyframes appear{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.kicker{font-size:clamp(15px,1.6vw,23px);color:var(--cyan);font-weight:700;letter-spacing:1px;margin-bottom:2vh}
+.arabic-title{font-family:'Noto Naskh Arabic',serif;font-size:clamp(42px,6.5vw,88px);color:var(--gold);line-height:1.45;margin:0 0 1vh}
+.title{font-size:clamp(30px,4.5vw,62px);line-height:1.45;font-weight:700;margin:0 0 2vh}
+.bodytext{font-size:clamp(25px,3.1vw,43px);line-height:1.75;max-width:1200px;margin:0 auto;color:#f5f8ff}
+.highlight{color:var(--gold);font-weight:700}
+.subtext{font-size:clamp(19px,2.1vw,29px);line-height:1.65;color:var(--muted);max-width:1100px;margin:1.5vh auto 0}
+.question-card{width:min(100%,1120px);padding:clamp(22px,3.5vw,44px);border:2px solid #69e2dc70;border-radius:24px;background:linear-gradient(135deg,#15365b,#112849);box-shadow:0 12px 35px #0003}
+.question-mark{font-size:clamp(18px,2vw,28px);color:var(--cyan);font-weight:700;margin-bottom:12px}
+.question{font-size:clamp(29px,4vw,54px);line-height:1.5;font-weight:700}
+.reveal-btn{margin-top:3vh;border:0;border-radius:50px;padding:15px 34px;background:linear-gradient(90deg,var(--gold),#ffad55);color:#14213d;font:700 clamp(18px,1.8vw,25px) 'Manjari',sans-serif;cursor:pointer;box-shadow:0 8px 22px #0004}
+.answer{display:none;margin:2.5vh auto 0;padding:20px 26px;border-radius:18px;background:#0b1c35;border:1px solid #9be7b170;font-size:clamp(24px,3vw,40px);line-height:1.7;max-width:1120px;color:#fff}
+.answer.show{display:block;animation:appear .3s ease}
+.list{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;width:min(100%,1100px);margin-top:2vh}
+.list-item{background:#17365b;border:1px solid #ffffff20;border-radius:18px;padding:20px 12px;font-size:clamp(23px,2.6vw,36px);font-weight:700}
+.list-item b{display:block;color:var(--gold);font-size:.72em;margin-bottom:8px}
+.story{max-width:1250px;text-align:left;font-size:clamp(22px,2.65vw,36px);line-height:1.72}
+.story p{margin:0 0 1.2vh}
+.story .ending{color:var(--gold);font-weight:700}
+.benefits{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;width:min(100%,1150px);margin-top:1vh}
+.benefit{display:flex;align-items:center;gap:14px;text-align:left;background:#17365b;border:1px solid #ffffff1c;border-radius:16px;padding:13px 18px;font-size:clamp(20px,2.35vw,31px)}
+.benefit span{color:var(--gold);font-weight:700;font-size:1.05em}
+.dictation-title{font-size:clamp(34px,4.5vw,60px);font-weight:700;color:var(--gold);margin:0}
+.dictation-note{font-size:clamp(17px,1.8vw,25px);color:var(--muted);margin:1vh 0 2.5vh}
+.words{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;width:100%;max-width:1250px}
+.word{background:#f4f7ff;color:#14213d;border-radius:14px;padding:clamp(12px,1.5vw,20px) 8px;font-size:clamp(20px,2.35vw,31px);font-weight:700;box-shadow:0 7px 16px #0003}
+.word small{display:block;color:#55708e;font:600 clamp(12px,1.1vw,16px) 'Manjari',sans-serif;margin-bottom:5px}
+.footer{display:flex;align-items:center;justify-content:space-between;gap:14px;min-height:8vh}
+.nav{display:flex;align-items:center;gap:12px}
+.nav button,.utility{border:1px solid #ffffff30;background:#132b4e;color:white;border-radius:14px;padding:12px 22px;font:600 clamp(16px,1.5vw,21px) 'Manjari',sans-serif;cursor:pointer}
+.nav button.primary{background:var(--gold);color:#17233b;border-color:var(--gold);font-weight:700}
+.nav button:disabled{opacity:.3;cursor:not-allowed}
+.hint{color:var(--muted);font-size:clamp(13px,1.2vw,17px)}
+.page-number{font-size:clamp(15px,1.5vw,21px);color:var(--muted);min-width:90px;text-align:center}
+@media(max-width:700px){
+ .presentation{padding:10px;gap:8px}.topbar{min-height:48px}.logo{width:38px;height:38px}.stage{border-radius:18px;padding:18px}.list{grid-template-columns:1fr;gap:9px}.list-item{padding:10px}.benefits{grid-template-columns:1fr;gap:8px}.benefit{padding:8px 12px}.words{grid-template-columns:repeat(3,1fr);gap:8px}.word{padding:9px 4px}.footer{min-height:52px}.nav{gap:6px}.nav button,.utility{padding:9px 12px}.hint{display:none}.story{text-align:center}
+}
+@media(max-height:650px){
+ .presentation{padding-top:1vh;padding-bottom:1vh;gap:1vh}.stage{padding:2vh 3vw}.bodytext{line-height:1.5}.list{gap:10px}.list-item{padding:10px}.benefits{gap:8px}.benefit{padding:8px 12px}.answer{margin-top:1vh;padding:12px}.reveal-btn{margin-top:1.5vh;padding:10px 24px}.words{gap:8px}.word{padding:8px}
+}
+</style>
+</head>
+<body>
+<div class="presentation">
+ <header class="topbar">
+  <div class="brand"><div class="logo">ع</div><div class="brandtext">صلة الرحم <small>ഇസ്‌ലാമിക പാഠാവതരണം</small></div></div>
+  <div class="progress"><span id="progressText">1 / 8</span><div class="progress-track"><div class="progress-fill" id="progressFill"></div></div></div>
+ </header>
+
+ <main class="stage">
+  <section class="slide active">
+   <div class="kicker">ഇന്നത്തെ പാഠം</div>
+   <h1 class="arabic-title">صِلَةُ الرَّحِم</h1>
+   <h2 class="title">കുടുംബബന്ധം ചേർക്കൽ</h2>
+   <p class="bodytext">നമ്മുടെ ബന്ധുക്കളുമായി നല്ല ബന്ധം സ്ഥാപിച്ചു ജീവിക്കുന്നതിനെയാണ് <span class="highlight">കുടുംബബന്ധം ചേർക്കൽ</span> എന്ന് പറയുന്നത്.</p>
+  </section>
+
+  <section class="slide">
+   <div class="kicker">പേജ് 2 · ചോദ്യോത്തരം</div>
+   <div class="question-card">
+    <div class="question-mark">ചോദ്യം</div>
+    <div class="question">ഒരു നല്ല മുസ്ലിമിൻ്റെ കടമ എന്താണ്?</div>
+    <button class="reveal-btn" onclick="toggleAnswer(this)">ഉത്തരം കാണുക</button>
+    <div class="answer">നബി സ്വല്ലല്ലാഹു അലൈഹിവസല്ലം പറഞ്ഞു: നല്ല മുസ്ലിമിൻ്റെ വലിയൊരു കടമയാണ് <span class="highlight">കുടുംബബന്ധം കാത്തുസൂക്ഷിക്കൽ.</span></div>
+   </div>
+  </section>
+
+  <section class="slide">
+   <div class="kicker">പേജ് 3</div>
+   <h2 class="title">കുടുംബബന്ധം മുറിച്ചാൽ…</h2>
+   <div class="question-card">
+    <p class="bodytext">കുടുംബബന്ധം മുറിച്ചു കളയുന്നവർക്ക് <span class="highlight">സ്വർഗ്ഗത്തിൽ പ്രവേശിക്കാൻ കഴിയില്ല.</span></p>
+    <button class="reveal-btn" onclick="toggleAnswer(this)">ഓർമ്മിക്കാം</button>
+    <div class="answer">കുടുംബബന്ധം ചേർക്കൽ വലിയ പുണ്യമാണ്. മുറിച്ചു കളയൽ വലിയ തെറ്റാണ്.</div>
+   </div>
+  </section>
+
+  <section class="slide">
+   <div class="kicker">പേജ് 4</div>
+   <h2 class="title">കുടുംബബന്ധം എങ്ങനെ ചേർക്കാം?</h2>
+   <div class="list">
+    <div class="list-item"><b>01</b>കുടുംബ സന്ദർശനം</div>
+    <div class="list-item"><b>02</b>സലാം പറയൽ</div>
+    <div class="list-item"><b>03</b>സഹായം നൽകൽ</div>
+   </div>
+   <p class="subtext">കുടുംബ സന്ദർശനം എന്നാൽ അവരെ പോയി കാണലും വിശേഷങ്ങൾ ചോദിക്കലും ഫോണിൽ വിളിച്ച് അന്വേഷിക്കലും എല്ലാം പെടും.</p>
+  </section>
+
+  <section class="slide">
+   <div class="kicker">പേജ് 5 · ചോദ്യോത്തരം</div>
+   <div class="question-card">
+    <div class="question-mark">ചോദ്യം</div>
+    <div class="question">നമ്മളോട് ഒരാൾ പിണങ്ങിയാൽ നമ്മൾ എന്തു ചെയ്യണം?</div>
+    <button class="reveal-btn" onclick="toggleAnswer(this)">ഉത്തരം കാണുക</button>
+    <div class="answer">നബി സ്വല്ലല്ലാഹു അലൈഹിവസല്ലം പറഞ്ഞു: നമ്മളുമായി പിണങ്ങിയവരോട് നമ്മൾ <span class="highlight">ഇണങ്ങണം.</span><br>അപ്പോൾ അല്ലാഹുവിൻ്റെ പ്രത്യേക സഹായം നമുക്ക് കിട്ടും.</div>
+   </div>
+  </section>
+
+  <section class="slide">
+   <div class="kicker">പേജ് 6</div>
+   <h2 class="title">കുടുംബബന്ധം നന്നായി കാത്തുസൂക്ഷിച്ചാൽ ഉള്ള ഗുണങ്ങൾ</h2>
+   <div class="benefits">
+    <div class="benefit"><span>01</span> ആയുസ്സ് നീളും</div>
+    <div class="benefit"><span>02</span> ഭക്ഷണം (റിസ്ക്) വിശാലമാകും</div>
+    <div class="benefit"><span>03</span> അല്ലാഹുവിൻ്റെ സ്നേഹം ലഭിക്കും</div>
+    <div class="benefit"><span>04</span> അല്ലാഹു നമ്മെ പ്രത്യേകം പരിഗണിക്കും</div>
+    <div class="benefit"><span>05</span> അവർക്ക് നൽകുന്ന സദക്കൾക്ക് ഇരട്ടി പ്രതിഫലം ലഭിക്കും</div>
+   </div>
+  </section>
+
+  <section class="slide">
+   <div class="kicker">പേജ് 7 · ഒരു സംഭവം</div>
+   <h2 class="title">അബൂത്വൽഹ (റളിയള്ളാഹു അൻഹു)</h2>
+   <div class="story">
+    <p>അബൂത്വൽഹ റളിയള്ളാഹു അൻഹു എന്നൊരു സ്വഹാബിക്ക് മദീനയിൽ ഒരു വലിയ ഈത്തപ്പന തോട്ടം ഉണ്ടായിരുന്നു. അദ്ദേഹം അത് പാവപ്പെട്ടവർക്ക് സ്വദഖ ചെയ്യാൻ തീരുമാനിച്ചു.</p>
+    <p>നബി സ്വല്ലല്ലാഹു അലൈഹിവസല്ലം ഇത് കേട്ടപ്പോൾ ഒരുപാട് സന്തോഷിച്ചു. എന്നിട്ട് പറഞ്ഞു: “ഇതൊരു ലാഭകരമായ സമ്പത്ത് തന്നെ. പക്ഷേ അത് നിങ്ങൾ നിങ്ങളുടെ അടുത്ത ബന്ധുക്കൾക്ക് നൽകണമെന്നാണ് എൻ്റെ അഭിപ്രായം.”</p>
+    <p class="ending">അങ്ങനെ അബൂത്വൽഹ (റളിയള്ളാഹു അൻഹു) തൻ്റെ തോട്ടം അടുത്ത ബന്ധുക്കൾക്കും പിതൃവ്യൻ്റെ മക്കൾക്കും വീതിച്ചു നൽകി.</p>
+   </div>
+  </section>
+
+  <section class="slide">
+   <div class="kicker">പാഠഭാഗം പൂർത്തിയായി</div>
+   <h2 class="dictation-title">കേട്ടെഴുത്ത്</h2>
+   <p class="dictation-note">താഴെ കൊടുത്തിരിക്കുന്ന വാക്കുകൾ അറബി മലയാളത്തിൽ നോട്ടിൽ എഴുതുക.</p>
+   <div class="words">
+    <div class="word"><small>01</small>ബന്ധുക്കൾ</div>
+    <div class="word"><small>02</small>കുടുംബബന്ധം</div>
+    <div class="word"><small>03</small>കാത്തുസൂക്ഷിക്കൽ</div>
+    <div class="word"><small>04</small>പ്രവേശിക്കുക</div>
+    <div class="word"><small>05</small>പുണ്യം</div>
+    <div class="word"><small>06</small>സന്ദർശനം</div>
+    <div class="word"><small>07</small>വിശേഷങ്ങൾ</div>
+    <div class="word"><small>08</small>അന്വേഷിക്കുക</div>
+    <div class="word"><small>09</small>പിണങ്ങുക</div>
+    <div class="word"><small>10</small>ഇണങ്ങുക</div>
+    <div class="word"><small>11</small>സഹായം</div>
+    <div class="word"><small>12</small>വിശാലം</div>
+    <div class="word"><small>13</small>പ്രത്യേകം</div>
+    <div class="word"><small>14</small>പ്രതിഫലം</div>
+    <div class="word"><small>15</small>പിതൃവ്യൻ</div>
+   </div>
+  </section>
+ </main>
+
+ <footer class="footer">
+  <div class="hint">← → കീകൾ ഉപയോഗിച്ചും പേജ് മാറ്റാം · F കീ അമർത്തി Full Screen ആക്കാം</div>
+  <div class="nav">
+   <button id="prevBtn" onclick="changeSlide(-1)" disabled>← PREVIOUS</button>
+   <div class="page-number" id="pageNumber">PAGE 1</div>
+   <button class="primary" id="nextBtn" onclick="changeSlide(1)">NEXT →</button>
+  </div>
+ </footer>
+</div>
+<script>
+const slides=[...document.querySelectorAll('.slide')];
+let current=0;
+function showSlide(index){
+ current=Math.max(0,Math.min(index,slides.length-1));
+ slides.forEach((s,i)=>s.classList.toggle('active',i===current));
+ document.getElementById('prevBtn').disabled=current===0;
+ document.getElementById('nextBtn').disabled=current===slides.length-1;
+ document.getElementById('pageNumber').textContent=current===slides.length-1?'കേട്ടെഴുത്ത്':'PAGE '+(current+1);
+ document.getElementById('progressText').textContent=(current+1)+' / '+slides.length;
+ document.getElementById('progressFill').style.width=((current+1)/slides.length*100)+'%';
+}
+function changeSlide(step){showSlide(current+step)}
+function toggleAnswer(button){
+ const answer=button.nextElementSibling;
+ const visible=answer.classList.toggle('show');
+ button.textContent=visible?'ഉത്തരം മറയ്ക്കുക':'ഉത്തരം കാണുക';
+}
+document.addEventListener('keydown',e=>{
+ if(e.key==='ArrowRight'||e.key==='PageDown'||e.key===' '){e.preventDefault();changeSlide(1)}
+ if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();changeSlide(-1)}
+ if(e.key.toLowerCase()==='f'){
+  if(!document.fullscreenElement)document.documentElement.requestFullscreen?.();
+  else document.exitFullscreen?.();
+ }
+});
+showSlide(0);
+</script>
+</body>
+</html>
